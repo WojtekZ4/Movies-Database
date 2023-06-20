@@ -17,37 +17,37 @@ public class MovieController {
     private final MovieService movieService;
 
     @Autowired
-    public MovieController(MovieService movieService) {
+    public MovieController (MovieService movieService) {
         this.movieService = movieService;
     }
 
     @PutMapping
-    public Movie createOrUpdateMovie(@RequestBody Movie newMovie) {
-        return movieService.saveMovie(newMovie);
+    public ResponseEntity<Movie> createOrUpdateMovie(@RequestBody Movie newMovie) {
+        return new ResponseEntity<>(movieService.saveMovie(newMovie), HttpStatus.OK);
     }
 
     @GetMapping(value = { "", "/" })
-    Collection<Movie> getMovies() {
-        return movieService.findAll();
+    public ResponseEntity<Collection<Movie>> getMovies() {
+        return new ResponseEntity<>(movieService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/by-title")
-    Movie byTitle(@RequestParam String title) {
-        return movieService.findOneByTitle(title);
+    public ResponseEntity<Movie> byTitle(@RequestParam String title) {
+        return new ResponseEntity<>(movieService.findOneByTitle(title), HttpStatus.OK);
     }
 
     @GetMapping("/by-actor")
-    public Set<Movie> getActorsMovies(@RequestParam String name) {
-        return movieService.getActorsMovies(name);
+    public ResponseEntity<Set<Movie>> getActorsMovies(@RequestParam String name) {
+        return new ResponseEntity<>(movieService.getActorsMovies(name), HttpStatus.OK);
     }
 
     @GetMapping("/by-director")
-    public Set<Movie> getDirectorsMovies(@RequestParam String name) {
-        return movieService.getDirectorsMovies(name);
+    public ResponseEntity<Set<Movie>> getDirectorsMovies(@RequestParam String name) {
+        return new ResponseEntity<>(movieService.getDirectorsMovies(name), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<?> delete(@PathVariable String id) {
+    ResponseEntity<String> delete(@PathVariable String id) {
         movieService.deleteById(id);
         return new ResponseEntity<>("Movie successfully deleted.", HttpStatus.OK);
     }

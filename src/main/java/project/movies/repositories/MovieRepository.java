@@ -17,12 +17,12 @@ public interface MovieRepository extends Neo4jRepository<Movie, String> {
     Movie findOneByTitle(String title);
 
     @Query("""
-            MATCH (a:Person {name: name})-[r:ACTED_IN]->(m:Movie)
+            MATCH (a:Person {name: $name})-[r:ACTED_IN]->(m:Movie)
             RETURN m""")
     Set<Movie> getActorsMovies(String name);
 
     @Query("""
-            MATCH (d:Person {name: name})-[r:DIRECTED]->(m:Movie)
+            MATCH (d:Person {name: $name})-[r:DIRECTED]->(m:Movie)
             RETURN m""")
     Set<Movie> getDirectorsMovies(String name);
 }

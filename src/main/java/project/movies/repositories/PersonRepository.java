@@ -46,9 +46,9 @@ public interface PersonRepository extends Neo4jRepository<Person, String> {
 
 
     @Query("""
-            MATCH (a1:Person {name: name})-[r:ACTED_IN]->(m:Movie),
-                  (a2:Person)-[r:ACTED_IN]->(m:Movie),
-            WHERE a1 != a2
+            MATCH (a1:Person {name: "Keanu Reeves"})-[r1:ACTED_IN]->(m:Movie),
+                  (a2:Person)-[r2:ACTED_IN]->(m)
+            WHERE a1.name <> a2.name
             RETURN a2""")
     Set<Person> getCoActors(String name);
 }

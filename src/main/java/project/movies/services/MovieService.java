@@ -61,6 +61,8 @@ public class MovieService {
     }
 
     public void deleteById(String id) {
+//        personService.getMovieDirectors(id).forEach(director -> personService.deleteDirectedRelation(director.getName(),id));
+//        personService.getMovieActors(id).forEach(actors -> personService.deleteActedInRelation(actors.getName(),id));
         movieRepository.deleteById(id);
     }
 }
